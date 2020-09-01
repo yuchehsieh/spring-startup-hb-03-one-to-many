@@ -25,8 +25,8 @@ public class CreateInstructorDemo {
         try {
 
             // create the objects
-            Instructor instructor = new Instructor("Frank", "Shih", "frank@luv2code.com");
-            InstructorDetail instructorDetail = new InstructorDetail("https://yourube.com/luv2work", "find business opportunity");
+            Instructor instructor = new Instructor("Susan", "Ben", "susan@luv2code.com");
+            InstructorDetail instructorDetail = new InstructorDetail("https://yourube.com/luv2work", "doing vlog every day");
 
             // associate the objects
             instructor.setInstructorDetail(instructorDetail);
@@ -47,6 +47,10 @@ public class CreateInstructorDemo {
             System.out.println("Done!");
 
         } finally {
+
+            // add clean up code
+            session.close();
+
             factory.close();
         }
     }
