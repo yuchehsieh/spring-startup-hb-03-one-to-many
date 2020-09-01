@@ -62,7 +62,7 @@ public class Course {
         return "Course{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", instructorId=" + instructorId +
+                ", instructorId=" + instructor +
                 '}';
     }
 }
