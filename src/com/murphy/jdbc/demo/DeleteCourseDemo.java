@@ -1,12 +1,13 @@
 package com.murphy.jdbc.demo;
 
+import com.murphy.jdbc.entity.Course;
 import com.murphy.jdbc.entity.Instructor;
 import com.murphy.jdbc.entity.InstructorDetail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class DeleteDemo {
+public class DeleteCourseDemo {
 
     public static void main(String[] args) {
 
@@ -15,6 +16,7 @@ public class DeleteDemo {
                                 .configure("hibernate.cfg.xml")
                                 .addAnnotatedClass(Instructor.class)
                                 .addAnnotatedClass(InstructorDetail.class)
+                                .addAnnotatedClass(Course.class)
                                 .buildSessionFactory();
 
         // create session
@@ -25,21 +27,14 @@ public class DeleteDemo {
             // start a transaction
             session.beginTransaction();
 
-            // get the instructor by primary key / id
-            int instructorId = 1;
-            System.out.println("Get instructor id=1: ");
-            Instructor instructor = session.get(Instructor.class, instructorId);
+            // get a course
+            int theId = 10;
+            Course tempCourse = session.get(Course.class, theId);
 
-            System.out.println("Found Instructor: " + instructor);
+            // delete course
+            System.out.println("Deleting the course: " + tempCourse);
 
-            // delete the instructors
-            if(instructor != null) {
-                System.out.println("Deleting the Instructor: " + instructor);
-
-                // Note: this will ALSO delete associated "details" object
-                // because of CascadeType.ALL
-                session.delete(instructor);
-            }
+            session.delete(tempCourse);
 
             // commit transaction
             session.getTransaction().commit();
@@ -47,6 +42,10 @@ public class DeleteDemo {
             System.out.println("Done!");
 
         } finally {
+
+            // add clean up code
+            session.close();
+
             factory.close();
         }
     }
